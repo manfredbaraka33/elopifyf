@@ -65,7 +65,7 @@ const handleAnalyze = () => {
       const textData = parsedData.map((row) => row[selectedColumn]).filter(Boolean);
       const payload = { texts: textData };
   
-      fetch('http://localhost:8000/predict/sentiment/batch', {
+      fetch('https://elopyx-hatespeech.hf.space/predict/sentiment/batch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -165,7 +165,7 @@ const handleSingleAnalyze = () => {
     }
   console.log("Hereis ",singleText);
     setLoadingSingle(true);
-    fetch("http://localhost:8000/predict/sentiment", {
+    fetch("https://elopyx-hatespeech.hf.space/predict/sentiment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
