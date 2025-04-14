@@ -62,7 +62,7 @@ const Speech = () => {
       const textData = parsedData.map((row) => row[selectedColumn]).filter(Boolean);
       const payload = { texts: textData };
 
-      fetch('http://localhost:8000/predict/speech/batch', {
+      fetch('https://elopyx-hatespeech.hf.space/predict/speech/batch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -151,7 +151,7 @@ const Speech = () => {
       return;
     }
     setLoadingSingle(true);
-    fetch("http://localhost:8000/predict/speech", {
+    fetch("https://elopyx-hatespeech.hf.space/predict/speech", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: singleText })
