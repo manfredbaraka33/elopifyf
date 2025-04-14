@@ -1,0 +1,8 @@
+.dropzone {
+  background-color: #535C91;
+  transition: border 0.2s ease-in-out;
+}
+.dropzone:hover {
+  border-color: #9290C3;
+}
+
