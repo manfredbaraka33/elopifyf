@@ -17,7 +17,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="col"></div>
+{/*           <div className="col"></div>
 
           <div className="col-sm-10 col-md-5 col-lg-5 bg-transparent shadow-lg rounded p-3 my-2">
             <h2 className='text-info'>Assign to Department</h2>
@@ -25,7 +25,7 @@ const Home = () => {
             <Link to="/sentiment" className='btn btn-primary mt-3 border border-info border-3'>
               Classify Department
             </Link>
-          </div>
+          </div> */}
 
         </div>
       </center>
