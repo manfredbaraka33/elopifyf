@@ -33,7 +33,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Upload Info */}
+{/*         {/* Upload Info */}
         <div className="col-md-6">
           <div className="p-4 rounded shadow-lg bg-transparent ">
             <h4><i className="bi bi-upload me-2 text-warning"></i>What Can I Upload?</h4>
@@ -43,7 +43,7 @@ const About = () => {
               <li>You’ll be guided to select the correct column for analysis</li>
             </ul>
           </div>
-        </div>
+        </div> */}
 
         {/* Tech Stack */}
         <div className="col-md-6">
