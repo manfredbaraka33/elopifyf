@@ -163,23 +163,20 @@ Chart.register(
   LinearScale
 );
 
+const COLORS = {
+  positive: '#28a745',
+  neutral: '#ffc107',
+  negative: '#dc3545'
+};
+
 const SentimentModalOnly = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalResult, setModalResult] = useState(null);
   const [loadingModal, setLoadingModal] = useState(false);
-  const [selectedDept, setSelectedDept] = useState("HR"); // department selector
   const [sentimentCounts, setSentimentCounts] = useState({
-    HR: { positive: 0, neutral: 0, negative: 0 },
-    Marketing: { positive: 0, neutral: 0, negative: 0 },
-    Engineering: { positive: 0, neutral: 0, negative: 0 },
+    // initial empty object, departments will be added dynamically
   });
-
-  const COLORS = {
-    positive: '#28a745',
-    neutral: '#ffc107',
-    negative: '#dc3545'
-  };
 
   const openModal = () => {
     setModalText("");
@@ -205,16 +202,24 @@ const SentimentModalOnly = () => {
       .then(res => res.json())
       .then(data => {
         const sentiment = data.sentiment?.toLowerCase();
+        const department = data.department;
+        if (!sentiment || !department) {
+          throw new Error("Missing sentiment or department in API response");
+        }
+
         setModalResult(sentiment);
 
-        // Update department-specific counts
-        setSentimentCounts(prev => ({
-          ...prev,
-          [selectedDept]: {
-            ...prev[selectedDept],
-            [sentiment]: (prev[selectedDept][sentiment] || 0) + 1,
-          }
-        }));
+        setSentimentCounts(prev => {
+          // If department does not exist, initialize counts
+          const deptCounts = prev[department] || { positive: 0, neutral: 0, negative: 0 };
+          return {
+            ...prev,
+            [department]: {
+              ...deptCounts,
+              [sentiment]: (deptCounts[sentiment] || 0) + 1,
+            }
+          };
+        });
       })
       .catch(err => {
         console.error(err);
@@ -223,12 +228,12 @@ const SentimentModalOnly = () => {
       .finally(() => setLoadingModal(false));
   };
 
-  // Pie chart data (total across departments)
+  // Calculate totals for Pie chart across all departments
   const totalCounts = Object.values(sentimentCounts).reduce(
     (acc, dept) => ({
-      positive: acc.positive + dept.positive,
-      neutral: acc.neutral + dept.neutral,
-      negative: acc.negative + dept.negative
+      positive: acc.positive + (dept.positive || 0),
+      neutral: acc.neutral + (dept.neutral || 0),
+      negative: acc.negative + (dept.negative || 0)
     }),
     { positive: 0, neutral: 0, negative: 0 }
   );
@@ -244,24 +249,25 @@ const SentimentModalOnly = () => {
     ],
   };
 
-  // Grouped bar chart data
+  // Bar chart data grouped by department (dynamic)
   const departments = Object.keys(sentimentCounts);
+
   const barData = {
     labels: departments,
     datasets: [
       {
         label: 'Positive',
-        data: departments.map(dep => sentimentCounts[dep].positive),
+        data: departments.map(dep => sentimentCounts[dep]?.positive || 0),
         backgroundColor: COLORS.positive,
       },
       {
         label: 'Neutral',
-        data: departments.map(dep => sentimentCounts[dep].neutral),
+        data: departments.map(dep => sentimentCounts[dep]?.neutral || 0),
         backgroundColor: COLORS.neutral,
       },
       {
         label: 'Negative',
-        data: departments.map(dep => sentimentCounts[dep].negative),
+        data: departments.map(dep => sentimentCounts[dep]?.negative || 0),
         backgroundColor: COLORS.negative,
       },
     ],
@@ -292,6 +298,9 @@ const SentimentModalOnly = () => {
               legend: { position: 'top' },
               title: { display: true, text: 'Sentiment by Department' },
             },
+            scales: {
+              y: { beginAtZero: true }
+            }
           }}
         />
       </div>
@@ -306,21 +315,6 @@ const SentimentModalOnly = () => {
                 <button type="button" className="btn-close" onClick={closeModal}></button>
               </div>
               <div className="modal-body">
-                {/* Department Selector */}
-                <div className="mb-3">
-                  <label className="form-label">Select Department:</label>
-                  <select
-                    className="form-select"
-                    value={selectedDept}
-                    onChange={e => setSelectedDept(e.target.value)}
-                    disabled={loadingModal}
-                  >
-                    {departments.map(dep => (
-                      <option key={dep} value={dep}>{dep}</option>
-                    ))}
-                  </select>
-                </div>
-
                 <textarea
                   className="form-control"
                   rows={4}
