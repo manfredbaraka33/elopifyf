@@ -38,7 +38,7 @@ const SentimentModalOnly = () => {
 
     setLoadingModal(true);
 
-    fetch('https://elopyx-hatespeech.hf.space', {
+    fetch('https://elopyx-hatespeech.hf.space/classify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: modalText }),
