@@ -13,9 +13,9 @@ const Topbar = () => {
         <li className="nav-item mx-3">
           <Link className="nav-link" to="/sentiment" >Sentiment</Link>
         </li>
-        <li className="nav-item mx-3">
+{/*         <li className="nav-item mx-3">
           <Link className="nav-link" to="/speech">Speech</Link>
-        </li>
+        </li> */}
         <li className="nav-item mx-3">
           <Link className="nav-link" to="/about">About</Link>
         </li>    
