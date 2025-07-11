@@ -22,7 +22,7 @@ const Home = () => {
           <div className="col-sm-10 col-md-5 col-lg-5 bg-transparent shadow-lg rounded p-3 my-2">
             <h2 className='text-info'>Assign to Department</h2>
             <p>Automatically classify feedback into Reception, Emergency, Pharmacy, Lab, or Other.</p>
-            <Link to="/department" className='btn btn-primary mt-3 border border-info border-3'>
+            <Link to="/sentiment" className='btn btn-primary mt-3 border border-info border-3'>
               Classify Department
             </Link>
           </div>
