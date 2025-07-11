@@ -33,17 +33,7 @@ const About = () => {
           </div>
         </div>
 
-{/*         {/* Upload Info */}
-        <div className="col-md-6">
-          <div className="p-4 rounded shadow-lg bg-transparent ">
-            <h4><i className="bi bi-upload me-2 text-warning"></i>What Can I Upload?</h4>
-            <ul className="mt-3">
-              <li>Supported file types: <code>.csv</code> and <code>.xlsx</code></li>
-              <li>One text column containing patient feedback is required</li>
-              <li>You’ll be guided to select the correct column for analysis</li>
-            </ul>
-          </div>
-        </div> */}
+
 
         {/* Tech Stack */}
         <div className="col-md-6">
