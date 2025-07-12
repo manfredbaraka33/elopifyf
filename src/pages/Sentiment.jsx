@@ -285,7 +285,22 @@ const SentimentModalOnly = () => {
 
       {/* Pie Chart */}
       <div className="d-flex justify-content-center mb-5" style={{ maxWidth: 400, margin: '0 auto' }}>
-        <Pie data={pieData} />
+        <Pie data={pieData}
+          options={{
+    plugins: {
+      legend: {
+        labels: {
+          color: '#ffffff', // Set legend text color
+        },
+      },
+      tooltip: {
+        bodyColor: '#ffffff',     // Tooltip text
+        titleColor: '#ffffff',    // Tooltip title
+        backgroundColor: '#333',  // Tooltip background (optional)
+      },
+    },
+  }}
+          />
       </div>
 
       {/* Bar Chart */}
@@ -300,10 +315,14 @@ const SentimentModalOnly = () => {
                       color: '#ffffff', // Legend text color
                         }
                       },
-              title: { display: true, text: 'Sentiment by Department' },
+              title: { display: true, text: 'Sentiment by Department',color: '#ffffff',  },
             },
             scales: {
-              y: { beginAtZero: true }
+              y: { beginAtZero: true,
+                 ticks: {
+          color: '#ffffff', // Y-axis label color
+        },
+                 }
             }
           }}
         />
