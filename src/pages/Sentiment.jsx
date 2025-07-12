@@ -295,7 +295,11 @@ const SentimentModalOnly = () => {
           options={{
             responsive: true,
             plugins: {
-              legend: { position: 'top' },
+              legend: { position: 'top',
+                      labels: {
+                      color: '#ffffff', // Legend text color
+                        }
+                      },
               title: { display: true, text: 'Sentiment by Department' },
             },
             scales: {
